@@ -1,12 +1,24 @@
 from sklearn.svm import LinearSVC
 from sklearn.linear_model import LogisticRegression
 from sklearn.feature_extraction.text import TfidfVectorizer
-
+import pandas as pd
+import nltk
 import re
 import string
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
+
+
+nltk.download('punkt')
+nltk.download('stopwords')
+
+# Load the dataset
+df = pd.read_csv('test.csv')
+
+df['text'] = df['Title'].fillna('') + " " + df['Description'].fillna('')
+df['text'] = df['text'].astype(str)
+
 
 def preprocess_text(text):
     # Tokenization
