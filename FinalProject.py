@@ -19,6 +19,8 @@ df = pd.read_csv('test.csv')
 df['text'] = df['Title'].fillna('') + " " + df['Description'].fillna('')
 df['text'] = df['text'].astype(str)
 
+X = df['text']
+y = df['Class Index']
 
 def preprocess_text(text):
     # Tokenization
@@ -40,3 +42,8 @@ def preprocess_text(text):
     cleaned_tokens = [word for word in cleaned_tokens if word]
 
     return " ".join([word for word in cleaned_tokens if word])
+
+X_clean = X.apply(preprocess_text)
+
+# Split the dataset
+X_train, X_test, y_train, y_test = train_test_split(X_clean, y, test_size=0.2, random_state=42)
