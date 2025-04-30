@@ -10,6 +10,8 @@ import string
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
+from sklearn.metrics import ConfusionMatrixDisplay
+import matplotlib.pyplot as plt
 
 
 nltk.download('punkt')
@@ -86,4 +88,18 @@ print("Evaluating Logistic Regression...")
 print(classification_report(y_test, log_preds))
 print("Logistic Regression Accuracy:", accuracy_score(y_test, log_preds))
 
+# Confusion matrix (SVM)
+cm_svm = confusion_matrix(y_test, svm_preds)
+plt.figure(figsize=(8,6))
+disp_svm = ConfusionMatrixDisplay(confusion_matrix=cm_svm)
+disp_svm.plot(cmap=plt.cm.Blues)
+plt.title("SVM Confusion Matrix")
+plt.show()
 
+# Confusion matrix (Logistic Regression)
+cm_log = confusion_matrix(y_test, log_preds)
+plt.figure(figsize=(8,6))
+disp_log = ConfusionMatrixDisplay(confusion_matrix=cm_log)
+disp_log.plot(cmap=plt.cm.Blues)
+plt.title("Logistic Regression Confusion Matrix")
+plt.show()
